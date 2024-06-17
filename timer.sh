@@ -26,7 +26,7 @@ if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhmsht] ]]; then
 fi 
 
 #Error handle 2:
-#checks to see if spd-say installs and refuses to run if not
+#checks to see if spd-say is installed and refuses to run if not
 test=$(which spd-say; echo $?)
 #if spd-say doesn't exist, print message and exit
 if [ "$test" == 1 ]; then
