@@ -24,16 +24,9 @@ if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhmsht] ]]; then
     echo -e "\t${SCRIPT##*/} -hms [hours] [minutes] [seconds] for hour, minute, second countdown."
     exit  1 
 fi 
+
 #Error handle 2:
 #checks to see if spd-say installs and refuses to run if not
-#
-#bypass issues with accessing folders  by temp changing
-#to $HOME
-cd $HOME
-
-#creates file listing path directories
-echo $PATH | awk 'BEGIN {RS=":"} {print}' | sed '/^$/d' > path-dirs
-
 test=$(which spd-say; echo $?)
 #if spd-say doesn't exist, print message and exit
 if [ "$test" == 1 ]; then
