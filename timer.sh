@@ -3,7 +3,24 @@
 #https://linuxconfig.org/time-countdown-bash-script-example
 #takes string for voice command to remind you when time is up
 SCRIPT=$0
-#Error message or reminder if no or improper arguments used
+#Error handle 1:
+#checks to see if spd-say is installed and refuses to run if not
+test=$(which spd-say; echo $?)
+#if spd-say doesn't exist, print message and exit
+if [ "$test" == 1 ]; then
+    echo "Missing command \"spd-say\". Install it first:"
+    echo
+    echo "Debian:"
+    echo "apt-get install speech-dispatcher"
+    echo "Fedora:"
+    echo "dnf install speech-dispatcher-utils"
+    echo "Arch:"
+    echo "pacman -S speech-dispatcher"
+    echo "CentOS:"
+    echo "yum install speech-dispatcher"
+    exit 1
+fi
+#Error handle 2: display help or warn about incorrect usage
 if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhmsht] ]]; then 
     echo -e "Usage:" 
     echo -e
@@ -25,23 +42,6 @@ if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhmsht] ]]; then
     exit  1 
 fi 
 
-#Error handle 2:
-#checks to see if spd-say is installed and refuses to run if not
-test=$(which spd-say; echo $?)
-#if spd-say doesn't exist, print message and exit
-if [ "$test" == 1 ]; then
-    echo "Missing command \"spd-say\". Install it first:"
-    echo
-    echo "Debian:"
-    echo "apt-get install speech-dispatcher"
-    echo "Fedora:"
-    echo "dnf install speech-dispatcher-utils"
-    echo "Arch:"
-    echo "pacman -S speech-dispatcher"
-    echo "CentOS:"
-    echo "yum install speech-dispatcher"
-    exit 1
-fi
 #capture time in seconds
 now=$(date +%s) 
 
