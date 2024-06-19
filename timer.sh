@@ -21,7 +21,7 @@ if [ "$test" == 1 ]; then
     exit 1
 fi
 #Error handle 2: display help or warn about incorrect usage
-if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhmsht] ]]; then 
+if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhms] ]]; then 
     echo -e "Usage:" 
     echo -e
     echo -e "\t${SCRIPT##*/} -i indefinite: counts time passed until cancel."
