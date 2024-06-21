@@ -1,4 +1,5 @@
 #!/bin/bash 
+#
 #a souped up version of a bash script found online:
 #https://linuxconfig.org/time-countdown-bash-script-example
 #takes string for voice command to remind you when time is up
