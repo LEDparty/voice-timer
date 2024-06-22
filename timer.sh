@@ -4,24 +4,7 @@
 #https://linuxconfig.org/time-countdown-bash-script-example
 #takes string for voice command to remind you when time is up
 SCRIPT=$0
-#Error handle 1:
-#checks to see if spd-say is installed and refuses to run if not
-test=$(which spd-say; echo $?)
-#if spd-say doesn't exist, print message and exit
-if [ "$test" == 1 ]; then
-    echo "Missing command \"spd-say\". Install it first:"
-    echo
-    echo "Debian:"
-    echo "apt-get install speech-dispatcher"
-    echo "Fedora:"
-    echo "dnf install speech-dispatcher-utils"
-    echo "Arch:"
-    echo "pacman -S speech-dispatcher"
-    echo "CentOS:"
-    echo "yum install speech-dispatcher"
-    exit 1
-fi
-#Error handle 2: display help or warn about incorrect usage
+#Error handle: display help or warn about incorrect usage
 if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhms] ]]; then 
     echo -e "Usage:" 
     echo -e
@@ -106,7 +89,7 @@ case $1 in
     *)
     ;;
 esac      
-
+#code for running this script like a stopwatch (doesn't utilize spd-say)
 if [ $1 = "-i" ]; then
     seconds=0
     minutes=0
@@ -158,7 +141,23 @@ if [ $1 = "-i" ]; then
 
         ((seconds++))
     done
+#code for countdown and voice reminder    
 else
+    test=$(which spd-say; echo $?)
+    #if spd-say doesn't exist, print message and exit
+    if [ "$test" == 1 ]; then
+        echo "Missing command \"spd-say\". Install it first:"
+        echo
+        echo "Debian:"
+        echo "apt-get install speech-dispatcher"
+        echo "Fedora:"
+        echo "dnf install speech-dispatcher-utils"
+        echo "Arch:"
+        echo "pacman -S speech-dispatcher"
+        echo "CentOS:"
+        echo "yum install speech-dispatcher"
+        exit 1
+    fi
     #text string saved as reminder, command for user, etc.
     echo "What do you want the robot to say when time runs out?"
     echo "Type reminder or enter -1 for silence: "
