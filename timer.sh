@@ -14,7 +14,7 @@ if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhms] ]]; then
     echo -e "\t${SCRIPT##*/} -s [number-of-seconds]: for second countdown."
     echo -e
     echo -e "\t${SCRIPT##*/} -d \"Jun 10 2011 16:06\", 17:30, or just hour of current day"
-    echo -e "\tin military time. Counts down to specified date or time."
+    echo -e "\tin military time or AM/PM format (for example, 1,2, etc.). Counts down to specified date or time."
     echo -e
     echo -e "\t${SCRIPT##*/} -m [number-number-of-minutes] for minute countdown."
     echo -e
@@ -28,16 +28,26 @@ fi
 
 #capture time in seconds
 now=$(date +%s) 
+#these variables are to account for when the user wants to use PM
+#time for the countdown
+current_hour=$(date +%H)
+selected_hour=$(echo "$2" | awk -F: '{print $1}')
+added_seconds=43200
 
 #option config
 case $1 in
 #date
     -d)
         until=$(date -d "$2" +%s) 
+		#idea for if you want to enter the time in PM:
+		if [ "$current_hour" -ge 12 ] && [ "$selected_hour" -le 12 ]; then
+		   until=$((until + added_seconds))
+		fi
         sec_rem=$((until - now)) 
-        #message for if you choose countdown for zero seconds
+        #message for if you choose countdown for earlier time
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history !" 
+			exit
         fi 
     ;;
 ##minutes
