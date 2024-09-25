@@ -5,7 +5,7 @@
 #takes string for voice command to remind you when time is up
 SCRIPT=$0
 #Error handle: display help or warn about incorrect usage
-if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[idhms] ]]; then 
+if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[indhms] ]]; then 
     echo -e "Usage:" 
     echo -e
     echo -e "\t${SCRIPT##*/} -i indefinite: counts time passed until cancel."
@@ -28,25 +28,14 @@ fi
 
 #capture time in seconds
 now=$(date +%s) 
-#these variables are to account for when the user wants to use PM
-#time for the countdown
-current_hour=$(date +%H)
-selected_hour=$(echo "$2" | awk -F: '{print $1}')
-added_seconds=43200
 
-#option config
 case $1 in
 #date
     -d)
         until=$(date -d "$2" +%s) 
-		#idea for if you want to enter the time in PM:
-		if [ "$current_hour" -ge 12 ] && [ "$selected_hour" -le 12 ]; then
-		   until=$((until + added_seconds))
-		fi
-        sec_rem=$((until - now)) 
-        #message for if you choose countdown for earlier time
+		sec_rem=$((until - now)) 
         if [ $sec_rem -lt 1 ]; then 
-            echo "$2 is already history !" 
+            echo "$2 is already history!" 
 			exit
         fi 
     ;;
