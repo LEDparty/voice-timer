@@ -20,7 +20,7 @@ if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[indhms] ]]; then
     echo -e "\tCounts down to specified date or time."
     echo -e "\tAlso, \"tomorrow\" works, so if you want to schedule this for"
 	echo -e	"\tthe early morning, enter"
-    echo -e "\t{SCRIPT##*/} -d \"6:00 tomorrow\" for 6 in the morning."
+    echo -e "\t${SCRIPT##*/} -d \"6:00 tomorrow\" for 6 in the morning."
     echo -e
     echo -e "\t${SCRIPT##*/} -m [number-number-of-minutes] for minute countdown."
     echo -e
