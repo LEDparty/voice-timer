@@ -1,6 +1,7 @@
 # About
 
-This timer is interactive and contains multiple options. You can countdown time based on a point in the future or
+This timer is interactive and contains multiple options.
+You can countdown time based on a point in the future or
 set amount of seconds, minutes, and hours passed. When time
 runs out, your computer makes a phonetic noise, shouts
 a reminder, or issues a command! You can choose the
