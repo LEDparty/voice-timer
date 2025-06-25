@@ -215,6 +215,7 @@ else
 
         weeks=$((interval / 604800)) 
         #the display of seconds, minutes, hours days weeks
+		echo "Coming message: " $string
         echo "----------------------------" 
         echo "Seconds: " $seconds 
         echo "Minutes: " $minutes 
