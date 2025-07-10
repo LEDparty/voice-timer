@@ -56,6 +56,7 @@ case $1 in
         sec_rem=$((until - now)) 
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
+			exit
         fi 
     ;;
 ##seconds
@@ -65,6 +66,7 @@ case $1 in
         sec_rem=$((until - now)) 
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
+			exit
         fi 
      ;;
 ##hours
@@ -74,6 +76,7 @@ case $1 in
         sec_rem=$((until - now)) 
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
+			exit
         fi 
     ;;
 ##added section for using hours and minutes
@@ -84,6 +87,7 @@ case $1 in
         sec_rem=$((until - now)) 
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
+			exit
         fi 
     ;;
 ##like above but incorporates seconds as well
@@ -98,6 +102,7 @@ case $1 in
     *)
     ;;
 esac      
+
 #code for running this script like a stopwatch (doesn't utilize spd-say)
 if [ $1 = "-i" ]; then
     seconds=0
