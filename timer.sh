@@ -41,17 +41,19 @@ case $1 in
 #date
     -d)
         until=$(date -d "$2" +%s) 
-	sec_rem=$((until - now)) 
+	    sec_rem=$((until - now))
+     
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
-		exit
+		    exit
         fi 
     ;;
 ##minutes
     -m)
         until=$((60 * $2)) 
         until=$((until + now)) 
-        sec_rem=$((until - now)) 
+        sec_rem=$((until - now))
+        
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
 			exit
@@ -61,7 +63,8 @@ case $1 in
     -s)
         until=$2 
         until=$((until + now)) 
-        sec_rem=$((until - now)) 
+        sec_rem=$((until - now))
+        
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
 			exit
@@ -72,6 +75,7 @@ case $1 in
         until=$(($2 * 60 * 60)) 
         until=$((until + now)) 
         sec_rem=$((until - now)) 
+        
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
 			exit
@@ -83,6 +87,7 @@ case $1 in
         until=$((("$2" * 60 * 60) + ("$3" * 60))) 
         until=$((until + now)) 
         sec_rem=$((until - now)) 
+        
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
 			exit
@@ -93,6 +98,7 @@ case $1 in
         until=$((("$2" * 60 * 60) + ("$3" * 60) + "$4")) 
         until=$((until + now)) 
         sec_rem=$((until - now)) 
+        
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history !" 
         fi 
