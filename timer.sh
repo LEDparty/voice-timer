@@ -19,7 +19,7 @@ if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[indhms] ]]; then
     echo -e "\tin military time or AM/PM format (for example, 1,2, etc.)."
     echo -e "\tCounts down to specified date or time."
     echo -e "\tAlso, \"tomorrow\" works, so if you want to schedule this for"
-	echo -e	"\tthe early morning, enter"
+    echo -e	"\tthe early morning, enter"
     echo -e "\t${SCRIPT##*/} -d \"6:00 tomorrow\" for 6 in the morning."
     echo -e
     echo -e "\t${SCRIPT##*/} -m [number-number-of-minutes] for minute countdown."
@@ -40,13 +40,11 @@ now=$(date +%s)
 case $1 in
 #date
     -d)
-		#maybe adding something to $2 (user arg) would enable you to
-		#use am/pm
         until=$(date -d "$2" +%s) 
-		sec_rem=$((until - now)) 
+	sec_rem=$((until - now)) 
         if [ $sec_rem -lt 1 ]; then 
             echo "$2 is already history!" 
-			exit
+		exit
         fi 
     ;;
 ##minutes
