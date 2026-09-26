@@ -4,6 +4,14 @@
 #https://linuxconfig.org/time-countdown-bash-script-example
 #takes string for voice command to remind you when time is up
 
+#keep programs stty settings
+DEFAULTS=$(stty -g)
+#remaps spacebar for pausing sciprt
+keep()
+{
+	stty susp ' '
+}
+
 SCRIPT=$0
 #Error handle: display help or warn about incorrect usage
 
@@ -109,6 +117,12 @@ esac
 
 #code for running this script like a stopwatch (doesn't utilize spd-say)
 if [ $1 = "-i" ]; then
+	#remaps interrupt key to space bar, needs to trap the
+	#signal or else this doesn't work when resuming
+	trap keep CONT                     
+	trap 'stty "$DEFAULTS"' EXIT            
+	keep
+
     seconds=0
     minutes=0
     hours=0
@@ -152,7 +166,7 @@ if [ $1 = "-i" ]; then
         printf "Days:    %i\n" $days 
         printf "Weeks:   %i\n" $weeks 
         echo -e "\nPress ctrl+c to end timer."
-        echo -e "Press ctrl+z to pause timer, then enter fg to pick up"
+        echo -e "Press space bar to pause timer, then enter fg to pick up"
         echo -e "where you left off."
         #delay one second and add to seconds
         sleep 1
@@ -161,6 +175,10 @@ if [ $1 = "-i" ]; then
     done
 #code for countdown and voice reminder    
 else
+	trap keep CONT                     
+	trap 'stty "$DEFAULTS"' EXIT            
+	keep
+
     test=$(which spd-say; echo $?)
     #if spd-say doesn't exist, print message and exit
     if [ "$test" == 1 ]; then
@@ -254,7 +272,7 @@ else
         #second delay
         printf "]%d%%" $percent
         echo -e "\n\nPress ctrl+c to end timer."
-        echo -e "Press ctrl+z to pause timer, then enter fg to pick up"
+        echo -e "Press space bar to pause timer, then enter fg to pick up"
         echo -e "where you left off."
         sleep 1
     done
