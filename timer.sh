@@ -174,10 +174,6 @@ if [ $1 = "-i" ]; then
     done
 #code for countdown and voice reminder    
 else
-	trap keep CONT                     
-	trap 'stty "$DEFAULTS"' EXIT            
-	keep
-
     test=$(which spd-say; echo $?)
     #if spd-say doesn't exist, print message and exit
     if [ "$test" == 1 ]; then
@@ -197,6 +193,10 @@ else
     echo "What do you want the robot to say when time runs out?"
     echo "Type reminder or enter -1 for silence: "
     read string
+
+	trap keep CONT                     
+	trap 'stty "$DEFAULTS"' EXIT            
+	keep
 
     #captures "now" as time in seconds 
     now=$(date +%s) 
