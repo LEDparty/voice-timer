@@ -24,11 +24,10 @@ if [[ "$#" -lt "1" ]] || ! [[ "$1" =~ ^-[indhms] ]]; then
     echo -e "\t${SCRIPT##*/} -s [number-of-seconds]: for second countdown."
     echo -e
     echo -e "\t${SCRIPT##*/} -d \"Jun 10 2011 16:06\", 17:30, or just hour of current day"
-    echo -e "\tin military time or AM/PM format (for example, 1,2, etc.)."
+    echo -e "\tin military time."
     echo -e "\tCounts down to specified date or time."
-    echo -e "\tAlso, \"tomorrow\" works, so if you want to schedule this for"
-    echo -e	"\tthe early morning, enter"
-    echo -e "\t${SCRIPT##*/} -d \"6:00 tomorrow\" for 6 in the morning."
+    echo -e "\tIf the hour has already passed in current day, it will schedule for the"
+    echo -e	"\tnext."
     echo -e
     echo -e "\t${SCRIPT##*/} -m [number-number-of-minutes] for minute countdown."
     echo -e
@@ -52,8 +51,8 @@ case $1 in
 	    sec_rem=$((until - now))
      
         if [ $sec_rem -lt 1 ]; then 
-            echo "$2 is already history!" 
-		    exit
+			until=$(date -d "tomorrow $2" +%s) 
+			sec_rem=$((until - now))
         fi 
     ;;
 ##minutes
